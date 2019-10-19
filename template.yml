@@ -8,10 +8,19 @@ Resources:
     Properties:
       StageName: dev
       Auth:
-        DefaultAuthorizer: MyLambdaTokenAuthorizer
+        DefaultAuthorizer: MyLambdaRequestAuthorizer
         Authorizers: 
-          MyLambdaTokenAuthorizer:
+          MyLambdaRequestAuthorizer:
+            FunctionPayloadType: REQUEST
             FunctionArn: !GetAtt MyAuthFunction.Arn
+            Identity:
+              # Must specify at least one of 
+              # Headers, QueryStrings, StageVariables, or Context
+              QueryStrings:
+                - auth
+              Headers:
+                - approval
+              ReauthorizeEvery: 100 
     
   HelloFunction:
     Type: 'AWS::Serverless::Function'

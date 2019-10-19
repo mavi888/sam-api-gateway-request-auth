@@ -1,13 +1,13 @@
 exports.authorizer = async function (event) {
-    const token = event.authorizationToken.toLowerCase();
+    const queryStringParams = event.queryStringParameters.auth;
+    const header = event.headers.approval;
+    
     const methodArn = event.methodArn;
 
-    switch (token) {
-        case 'allow':
-            return generateAuthResponse('user', 'Allow', methodArn);
-        default:
-            return generateAuthResponse('user', 'Deny', methodArn);
-    }
+    if (header === 'approve' && queryStringParams === 'yes')
+        return generateAuthResponse('user', 'Allow', methodArn);
+    else
+        return generateAuthResponse('user', 'Deny', methodArn);
 }
 
 function generateAuthResponse(principalId, effect, methodArn) {

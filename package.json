@@ -1,10 +1,10 @@
 {
-  "name": "sam-api-gateway-token-auth",
+  "name": "sam-api-gateway-request-auth",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "config": {
-    "stackName": "learning-serverless-sam-api-gateway-token-auth",
+    "stackName": "learning-serverless-sam-api-gateway-request-auth",
     "bucketName": "learning-serverless-publish-sam-app"
   },
   "scripts": {
